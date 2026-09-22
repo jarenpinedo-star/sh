@@ -1,0 +1,3380 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Para ti 🌼</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            background: #000;
+
+        }
+
+
+        /* =========================================
+           PANTALLAS
+        ========================================= */
+
+        .pantalla {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 1.2s ease,
+                visibility 1.2s ease;
+
+            overflow: hidden;
+
+        }
+
+
+        .pantalla.activa {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+
+
+        /* =========================================
+           PORTADA
+        ========================================= */
+
+        #portada {
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #fffef6 0%,
+                    #fff8d9 42%,
+                    #f7eab4 100%
+                );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 10;
+
+        }
+
+
+        .portada-contenido {
+
+            position: relative;
+
+            z-index: 5;
+
+            text-align: center;
+
+            animation:
+                aparecer 2s ease forwards;
+
+        }
+
+
+        .portada-contenido h1 {
+
+            font-size:
+                clamp(
+                    45px,
+                    8vw,
+                    90px
+                );
+
+            font-weight: normal;
+
+            color: #514a37;
+
+            margin-bottom: 30px;
+
+            text-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.08);
+
+        }
+
+
+        .corazon {
+
+            color: #d7a63e;
+
+        }
+
+
+        .boton-comenzar {
+
+            border: none;
+
+            padding:
+                15px 35px;
+
+            border-radius: 50px;
+
+            background:
+                #e4b94f;
+
+            color: white;
+
+            font-family: Georgia, serif;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px
+                rgba(170,125,25,0.25);
+
+            transition:
+                all .3s ease;
+
+        }
+
+
+        .boton-comenzar:hover {
+
+            transform:
+                translateY(-4px)
+                scale(1.04);
+
+            background:
+                #d9aa38;
+
+        }
+
+
+
+        /* =========================================
+           PÉTALOS DE PORTADA
+        ========================================= */
+
+        .petalos {
+
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+        }
+
+
+        .petalo {
+
+            position: absolute;
+
+            font-size: 22px;
+
+            opacity: .45;
+
+            animation:
+                caerPortada
+                linear infinite;
+
+        }
+
+
+        .petalo:nth-child(1) {
+
+            left: 10%;
+            animation-duration: 10s;
+
+        }
+
+
+        .petalo:nth-child(2) {
+
+            left: 25%;
+            animation-duration: 12s;
+
+        }
+
+
+        .petalo:nth-child(3) {
+
+            left: 40%;
+            animation-duration: 9s;
+
+        }
+
+
+        .petalo:nth-child(4) {
+
+            left: 60%;
+            animation-duration: 13s;
+
+        }
+
+
+        .petalo:nth-child(5) {
+
+            left: 75%;
+            animation-duration: 11s;
+
+        }
+
+
+        .petalo:nth-child(6) {
+
+            left: 90%;
+            animation-duration: 14s;
+
+        }
+
+
+
+        /* =========================================
+           JARDÍN
+        ========================================= */
+
+        #jardin {
+
+            background:
+                #9ed8f2;
+
+            transform-origin:
+                center center;
+
+            transition:
+                transform 3.2s
+                cubic-bezier(.7,0,.15,1),
+
+                filter 3.2s ease;
+
+        }
+
+
+        #jardin.zoom {
+
+            transform:
+                scale(4.5);
+
+            filter:
+                brightness(.9);
+
+        }
+
+
+        #canvasJardin {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+        }
+
+
+
+        /* =========================================
+           FRASE DEL JARDÍN
+        ========================================= */
+
+        .frase-jardin {
+
+            position: absolute;
+
+            top: 6%;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width:
+                min(90%, 850px);
+
+            text-align: center;
+
+            z-index: 15;
+
+            pointer-events: none;
+
+            color:
+                rgba(255,255,255,.94);
+
+            text-shadow:
+                0 3px 12px
+                rgba(46,68,38,.45);
+
+            opacity: 0;
+
+            animation:
+                aparecerFrase
+                2.5s ease
+                1.3s forwards;
+
+        }
+
+
+        .frase-jardin .texto {
+
+            font-size:
+                clamp(
+                    19px,
+                    3vw,
+                    31px
+                );
+
+            line-height: 1.45;
+
+            font-style: italic;
+
+            letter-spacing:
+                .3px;
+
+        }
+
+
+        .frase-jardin .corazon-transparente {
+
+            display: inline-block;
+
+            margin-left: 8px;
+
+            color:
+                rgba(255,245,190,.42);
+
+            font-size:
+                1.25em;
+
+            text-shadow:
+                0 0 18px
+                rgba(255,240,150,.5);
+
+            animation:
+                latido 3s
+                ease-in-out
+                infinite;
+
+        }
+
+
+
+        /* =========================================
+           BOTÓN JARDÍN
+        ========================================= */
+
+        .jardin-ui {
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: 32px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 20;
+
+            text-align: center;
+
+        }
+
+
+        .jardin-ui button {
+
+            border: none;
+
+            padding:
+                15px 32px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(255,255,255,.92);
+
+            color:
+                #59634d;
+
+            font-family:
+                Georgia, serif;
+
+            font-size: 17px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0,0,0,.18);
+
+            transition:
+                all .3s ease;
+
+        }
+
+
+        .jardin-ui button:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.04);
+
+            background:
+                white;
+
+        }
+
+
+
+        /* =========================================
+           TRANSICIÓN
+        ========================================= */
+
+        #transicion {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                #000;
+
+            z-index: 100;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 1.2s ease;
+
+        }
+
+
+        #transicion.mostrar {
+
+            opacity: 1;
+
+        }
+
+
+
+        /* =========================================
+           PANTALLA FINAL
+        ========================================= */
+
+        #pelicula {
+
+            background-image:
+
+                linear-gradient(
+                    rgba(0,0,0,.22),
+                    rgba(0,0,0,.5)
+                ),
+
+                url("orgullo.jpg");
+
+            background-size:
+                cover;
+
+            background-position:
+                center;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: white;
+
+            z-index: 5;
+
+        }
+
+
+        .pelicula-contenido {
+
+            width:
+                min(90%, 800px);
+
+            padding: 30px;
+
+            text-shadow:
+                0 3px 12px
+                rgba(0,0,0,.7);
+
+            animation:
+                aparecer
+                2.5s ease forwards;
+
+        }
+
+
+        .pelicula-contenido h2 {
+
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    75px
+                );
+
+            font-weight: normal;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .pelicula-contenido p {
+
+            font-size:
+                clamp(
+                    22px,
+                    3vw,
+                    34px
+                );
+
+            line-height: 1.5;
+
+            font-style: italic;
+
+        }
+
+
+        .audio-boton {
+
+            margin-top: 35px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.7);
+
+            background:
+                rgba(0,0,0,.3);
+
+            color: white;
+
+            padding:
+                12px 25px;
+
+            border-radius: 40px;
+
+            font-family:
+                Georgia, serif;
+
+            cursor: pointer;
+
+            backdrop-filter:
+                blur(5px);
+
+            transition:
+                all .3s ease;
+
+        }
+
+
+        .audio-boton:hover {
+
+            background:
+                rgba(255,255,255,.2);
+
+        }
+
+
+
+        /* =========================================
+           ANIMACIONES
+        ========================================= */
+
+        @keyframes aparecer {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes aparecerFrase {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateX(-50%)
+                    translateY(-15px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes latido {
+
+            0%,
+            100% {
+
+                transform:
+                    scale(1);
+
+                opacity: .55;
+
+            }
+
+            50% {
+
+                transform:
+                    scale(1.12);
+
+                opacity: .85;
+
+            }
+
+        }
+
+
+        @keyframes caerPortada {
+
+            0% {
+
+                top: -10%;
+
+                transform:
+                    rotate(0deg);
+
+            }
+
+            100% {
+
+                top: 110%;
+
+                transform:
+                    rotate(360deg);
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+    <!-- =================================================
+         PORTADA
+    ================================================== -->
+
+    <section
+        id="portada"
+        class="pantalla activa"
+    >
+
+        <div class="petalos">
+
+            <span class="petalo">🌼</span>
+            <span class="petalo">🌼</span>
+            <span class="petalo">🌼</span>
+            <span class="petalo">🌼</span>
+            <span class="petalo">🌼</span>
+            <span class="petalo">🌼</span>
+
+        </div>
+
+
+        <div class="portada-contenido">
+
+            <h1>
+
+                Hola bonita
+
+                <span class="corazon">
+                    ♡
+                </span>
+
+            </h1>
+
+
+            <button
+                class="boton-comenzar"
+                onclick="entrarAlJardin()"
+            >
+
+                Entrar al jardín 🌼
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         JARDÍN
+    ================================================== -->
+
+    <section
+        id="jardin"
+        class="pantalla"
+    >
+
+        <canvas
+            id="canvasJardin"
+        ></canvas>
+
+
+        <!-- FRASE -->
+
+        <div class="frase-jardin">
+
+            <div class="texto">
+
+                Que la distancia no se interponga
+                entre un lindo detalle y tú
+
+                <span class="corazon-transparente">
+                    ♡
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTÓN -->
+
+        <div class="jardin-ui">
+
+            <button
+                onclick="irAlRamo()"
+            >
+
+                Hay algo para ti 🌼
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         TRANSICIÓN
+    ================================================== -->
+
+    <div id="transicion"></div>
+
+
+
+    <!-- =================================================
+         PANTALLA FINAL
+    ================================================== -->
+
+    <section
+        id="pelicula"
+        class="pantalla"
+    >
+
+        <div class="pelicula-contenido">
+
+            <h2>
+                Entonces...
+            </h2>
+
+
+            <p>
+
+                "Quizás algunas historias están
+                destinadas a encontrarse."
+
+            </p>
+
+
+            <button
+                class="audio-boton"
+                id="audioBtn"
+                onclick="controlarAudio()"
+            >
+
+                ▶ Escuchar
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         AUDIO
+    ================================================== -->
+
+    <audio id="audio">
+
+        <source
+            src="dialogo.mp3"
+            type="audio/mpeg"
+        >
+
+    </audio>
+
+
+
+    <script>
+
+
+        /* =================================================
+           ELEMENTOS
+        ================================================= */
+
+        const portada =
+            document.getElementById(
+                "portada"
+            );
+
+
+        const jardin =
+            document.getElementById(
+                "jardin"
+            );
+
+
+        const pelicula =
+            document.getElementById(
+                "pelicula"
+            );
+
+
+        const transicion =
+            document.getElementById(
+                "transicion"
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "canvasJardin"
+            );
+
+
+        const ctx =
+            canvas.getContext("2d");
+
+
+
+        /* =================================================
+           VARIABLES CANVAS
+        ================================================= */
+
+        let ancho = 0;
+
+        let alto = 0;
+
+
+
+        function ajustarCanvas() {
+
+            ancho =
+                window.innerWidth;
+
+            alto =
+                window.innerHeight;
+
+
+            const dpr =
+                window.devicePixelRatio || 1;
+
+
+            canvas.width =
+                ancho * dpr;
+
+
+            canvas.height =
+                alto * dpr;
+
+
+            canvas.style.width =
+                ancho + "px";
+
+
+            canvas.style.height =
+                alto + "px";
+
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+        }
+
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                ajustarCanvas();
+
+                crearFloresSuelo();
+
+            }
+        );
+
+
+        ajustarCanvas();
+
+
+
+        /* =================================================
+           ENTRAR AL JARDÍN
+        ================================================= */
+
+        function entrarAlJardin() {
+
+            portada.classList.remove(
+                "activa"
+            );
+
+
+            setTimeout(() => {
+
+                jardin.classList.add(
+                    "activa"
+                );
+
+            }, 700);
+
+        }
+
+
+
+        /* =================================================
+           IR AL RAMO
+        ================================================= */
+
+        function irAlRamo() {
+
+            jardin.classList.add(
+                "zoom"
+            );
+
+
+            setTimeout(() => {
+
+                transicion.classList.add(
+                    "mostrar"
+                );
+
+            }, 2100);
+
+
+            setTimeout(() => {
+
+                jardin.classList.remove(
+                    "activa"
+                );
+
+
+                jardin.classList.remove(
+                    "zoom"
+                );
+
+
+                pelicula.classList.add(
+                    "activa"
+                );
+
+            }, 3300);
+
+
+            setTimeout(() => {
+
+                transicion.classList.remove(
+                    "mostrar"
+                );
+
+            }, 3900);
+
+        }
+
+
+
+        /* =================================================
+           CIELO
+        ================================================= */
+
+        function dibujarCielo() {
+
+            const cielo =
+                ctx.createLinearGradient(
+                    0,
+                    0,
+                    0,
+                    alto
+                );
+
+
+            cielo.addColorStop(
+                0,
+                "#82c8ed"
+            );
+
+
+            cielo.addColorStop(
+                .5,
+                "#bce6f6"
+            );
+
+
+            cielo.addColorStop(
+                1,
+                "#e4f4ef"
+            );
+
+
+            ctx.fillStyle =
+                cielo;
+
+
+            ctx.fillRect(
+                0,
+                0,
+                ancho,
+                alto
+            );
+
+        }
+
+
+
+        /* =================================================
+           SOL
+        ================================================= */
+
+        function dibujarSol() {
+
+            const x =
+                ancho * .82;
+
+
+            const y =
+                alto * .15;
+
+
+            const radio =
+                Math.min(
+                    ancho,
+                    alto
+                ) * .085;
+
+
+            const gradiente =
+                ctx.createRadialGradient(
+                    x,
+                    y,
+                    5,
+                    x,
+                    y,
+                    radio
+                );
+
+
+            gradiente.addColorStop(
+                0,
+                "rgba(255,250,194,.95)"
+            );
+
+
+            gradiente.addColorStop(
+                .45,
+                "rgba(255,237,150,.45)"
+            );
+
+
+            gradiente.addColorStop(
+                1,
+                "rgba(255,230,100,0)"
+            );
+
+
+            ctx.fillStyle =
+                gradiente;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                x,
+                y,
+                radio,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+        }
+
+
+
+        /* =================================================
+           NUBES
+        ================================================= */
+
+        function dibujarNube(
+            x,
+            y,
+            escala
+        ) {
+
+            ctx.save();
+
+
+            ctx.fillStyle =
+                "rgba(255,255,255,.72)";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                x,
+                y,
+                28 * escala,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.arc(
+                x + 35 * escala,
+                y - 15 * escala,
+                38 * escala,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.arc(
+                x + 75 * escala,
+                y,
+                30 * escala,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            ctx.restore();
+
+        }
+
+
+        function dibujarNubes() {
+
+            dibujarNube(
+                ancho * .12,
+                alto * .16,
+                .75
+            );
+
+
+            dibujarNube(
+                ancho * .46,
+                alto * .12,
+                .55
+            );
+
+
+            dibujarNube(
+                ancho * .67,
+                alto * .22,
+                .4
+            );
+
+        }
+
+
+
+        /* =================================================
+           ÁRBOLES
+        ================================================= */
+
+        function dibujarArbol(
+            x,
+            y,
+            escala
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y
+            );
+
+
+            /* Tronco */
+
+            ctx.fillStyle =
+                "#74553b";
+
+
+            ctx.fillRect(
+                -18 * escala,
+                0,
+                36 * escala,
+                155 * escala
+            );
+
+
+            /* Ramas */
+
+            ctx.strokeStyle =
+                "#67492f";
+
+
+            ctx.lineWidth =
+                12 * escala;
+
+
+            ctx.lineCap =
+                "round";
+
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                0,
+                45 * escala
+            );
+
+            ctx.lineTo(
+                -55 * escala,
+                -5 * escala
+            );
+
+            ctx.stroke();
+
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                5 * escala,
+                70 * escala
+            );
+
+            ctx.lineTo(
+                60 * escala,
+                5 * escala
+            );
+
+            ctx.stroke();
+
+
+            /* Copa */
+
+            ctx.fillStyle =
+                "#4e814a";
+
+
+            const copas = [
+
+                [-55, 8, 62],
+                [0, -28, 80],
+                [58, 12, 61],
+                [-20, 42, 68],
+                [35, 50, 65]
+
+            ];
+
+
+            copas.forEach(
+                item => {
+
+                    const [
+                        bx,
+                        by,
+                        r
+                    ] = item;
+
+
+                    ctx.beginPath();
+
+
+                    ctx.arc(
+                        bx * escala,
+                        by * escala,
+                        r * escala,
+                        0,
+                        Math.PI * 2
+                    );
+
+
+                    ctx.fill();
+
+                }
+            );
+
+
+            ctx.restore();
+
+        }
+
+
+        function dibujarArboles() {
+
+            dibujarArbol(
+                ancho * .07,
+                alto * .34,
+                .75
+            );
+
+
+            dibujarArbol(
+                ancho * .93,
+                alto * .31,
+                .85
+            );
+
+
+            dibujarArbol(
+                ancho * .23,
+                alto * .41,
+                .46
+            );
+
+
+            dibujarArbol(
+                ancho * .76,
+                alto * .40,
+                .5
+            );
+
+        }
+
+
+
+        /* =================================================
+           VEGETACIÓN LEJANA
+        ================================================= */
+
+        function dibujarVegetacionFondo() {
+
+            ctx.fillStyle =
+                "#6d9858";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                0,
+                alto * .56
+            );
+
+
+            for (
+                let x = 0;
+                x <= ancho;
+                x += 45
+            ) {
+
+                const altura =
+                    18 +
+                    Math.sin(
+                        x * .045
+                    ) * 13;
+
+
+                ctx.lineTo(
+                    x,
+                    alto * .56 -
+                    altura
+                );
+
+            }
+
+
+            ctx.lineTo(
+                ancho,
+                alto
+            );
+
+
+            ctx.lineTo(
+                0,
+                alto
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+        }
+
+
+
+        /* =================================================
+           PASTO
+        ================================================= */
+
+        function dibujarPasto() {
+
+            ctx.fillStyle =
+                "#538b4c";
+
+
+            ctx.fillRect(
+                0,
+                alto * .58,
+                ancho,
+                alto
+            );
+
+
+            ctx.fillStyle =
+                "#649d53";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                0,
+                alto * .63
+            );
+
+
+            ctx.quadraticCurveTo(
+                ancho * .3,
+                alto * .56,
+                ancho * .55,
+                alto * .65
+            );
+
+
+            ctx.quadraticCurveTo(
+                ancho * .8,
+                alto * .72,
+                ancho,
+                alto * .61
+            );
+
+
+            ctx.lineTo(
+                ancho,
+                alto
+            );
+
+
+            ctx.lineTo(
+                0,
+                alto
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+        }
+
+
+
+        /* =================================================
+           CAMINO
+        ================================================= */
+
+        function dibujarCamino() {
+
+            ctx.fillStyle =
+                "#d9c39a";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                ancho * .40,
+                alto
+            );
+
+
+            ctx.lineTo(
+                ancho * .60,
+                alto
+            );
+
+
+            ctx.lineTo(
+                ancho * .515,
+                alto * .56
+            );
+
+
+            ctx.lineTo(
+                ancho * .485,
+                alto * .56
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+
+            ctx.strokeStyle =
+                "rgba(255,255,255,.22)";
+
+
+            ctx.lineWidth = 3;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                ancho * .40,
+                alto
+            );
+
+
+            ctx.lineTo(
+                ancho * .485,
+                alto * .56
+            );
+
+
+            ctx.stroke();
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                ancho * .60,
+                alto
+            );
+
+
+            ctx.lineTo(
+                ancho * .515,
+                alto * .56
+            );
+
+
+            ctx.stroke();
+
+        }
+
+
+
+        /* =================================================
+           MARGARITA
+        ================================================= */
+
+        function dibujarMargarita(
+            ctx,
+            x,
+            y,
+            tamaño
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y
+            );
+
+
+            ctx.fillStyle =
+                "#fffef7";
+
+
+            const petalos = 12;
+
+
+            for (
+                let i = 0;
+                i < petalos;
+                i++
+            ) {
+
+                const angulo =
+                    (Math.PI * 2 / petalos) * i;
+
+
+                ctx.save();
+
+
+                ctx.rotate(
+                    angulo
+                );
+
+
+                ctx.beginPath();
+
+
+                ctx.ellipse(
+                    0,
+                    -tamaño * .47,
+                    tamaño * .19,
+                    tamaño * .40,
+                    0,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+
+                ctx.restore();
+
+            }
+
+
+            /* Centro */
+
+            ctx.fillStyle =
+                "#e2ae25";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                0,
+                0,
+                tamaño * .23,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            /* Pequeños detalles */
+
+            ctx.fillStyle =
+                "#c99018";
+
+
+            for (
+                let i = 0;
+                i < 7;
+                i++
+            ) {
+
+                const angulo =
+                    i * Math.PI * 2 / 7;
+
+
+                const px =
+                    Math.cos(angulo)
+                    * tamaño * .11;
+
+
+                const py =
+                    Math.sin(angulo)
+                    * tamaño * .11;
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    px,
+                    py,
+                    tamaño * .025,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+            }
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           GIRASOL GRANDE Y DETALLADO
+        ================================================= */
+
+        function dibujarGirasol(
+            ctx,
+            x,
+            y,
+            tamaño
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y
+            );
+
+
+            /*
+                Primera capa de pétalos
+            */
+
+            ctx.fillStyle =
+                "#f3c52e";
+
+
+            const petalos =
+                20;
+
+
+            for (
+                let i = 0;
+                i < petalos;
+                i++
+            ) {
+
+                const angulo =
+                    i *
+                    Math.PI * 2 /
+                    petalos;
+
+
+                ctx.save();
+
+
+                ctx.rotate(
+                    angulo
+                );
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    0,
+                    -tamaño * .15
+                );
+
+
+                ctx.bezierCurveTo(
+                    -tamaño * .17,
+                    -tamaño * .42,
+
+                    -tamaño * .18,
+                    -tamaño * .70,
+
+                    0,
+                    -tamaño * .82
+                );
+
+
+                ctx.bezierCurveTo(
+                    tamaño * .18,
+                    -tamaño * .70,
+
+                    tamaño * .17,
+                    -tamaño * .42,
+
+                    0,
+                    -tamaño * .15
+                );
+
+
+                ctx.closePath();
+
+
+                ctx.fill();
+
+
+                ctx.restore();
+
+            }
+
+
+            /*
+                Segunda capa de pétalos
+                ligeramente más oscura.
+            */
+
+            ctx.fillStyle =
+                "#e7af20";
+
+
+            const petalos2 =
+                18;
+
+
+            for (
+                let i = 0;
+                i < petalos2;
+                i++
+            ) {
+
+                const angulo =
+                    (i + .5) *
+                    Math.PI * 2 /
+                    petalos2;
+
+
+                ctx.save();
+
+
+                ctx.rotate(
+                    angulo
+                );
+
+
+                ctx.beginPath();
+
+
+                ctx.ellipse(
+                    0,
+                    -tamaño * .43,
+                    tamaño * .13,
+                    tamaño * .35,
+                    0,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+
+                ctx.restore();
+
+            }
+
+
+            /*
+                Centro oscuro grande
+            */
+
+            ctx.fillStyle =
+                "#67431d";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                0,
+                0,
+                tamaño * .31,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            /*
+                Semillas del centro
+            */
+
+            ctx.fillStyle =
+                "#8b5d24";
+
+
+            for (
+                let i = 0;
+                i < 35;
+                i++
+            ) {
+
+                const angulo =
+                    i * 2.399;
+
+
+                const radio =
+                    Math.sqrt(i / 35)
+                    * tamaño * .26;
+
+
+                const px =
+                    Math.cos(angulo)
+                    * radio;
+
+
+                const py =
+                    Math.sin(angulo)
+                    * radio;
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    px,
+                    py,
+                    tamaño * .022,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+            }
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           FLORES AMARILLAS PEQUEÑAS
+        ================================================= */
+
+        function dibujarFlorAmarilla(
+            ctx,
+            x,
+            y,
+            tamaño
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y
+            );
+
+
+            ctx.fillStyle =
+                "#f2c42e";
+
+
+            for (
+                let i = 0;
+                i < 7;
+                i++
+            ) {
+
+                const angulo =
+                    i *
+                    Math.PI * 2 / 7;
+
+
+                ctx.save();
+
+
+                ctx.rotate(
+                    angulo
+                );
+
+
+                ctx.beginPath();
+
+
+                ctx.ellipse(
+                    0,
+                    -tamaño * .35,
+                    tamaño * .21,
+                    tamaño * .34,
+                    0,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+
+                ctx.restore();
+
+            }
+
+
+            ctx.fillStyle =
+                "#b4771e";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                0,
+                0,
+                tamaño * .17,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           FLORES DEL SUELO
+           SE GENERAN SOLO UNA VEZ
+        ================================================= */
+
+        let floresSuelo = [];
+
+
+        function crearFloresSuelo() {
+
+            floresSuelo = [];
+
+
+            /*
+                Margaritas del fondo
+            */
+
+            for (
+                let i = 0;
+                i < 75;
+                i++
+            ) {
+
+                floresSuelo.push({
+
+                    x:
+                        Math.random() *
+                        ancho,
+
+                    y:
+                        alto * .56 +
+                        Math.random() *
+                        alto * .18,
+
+                    tamaño:
+                        7 +
+                        Math.random() * 9,
+
+                    tipo:
+                        Math.random() <
+                        .72
+                            ? "margarita"
+                            : "amarilla"
+
+                });
+
+            }
+
+
+            /*
+                Flores del primer plano
+            */
+
+            for (
+                let i = 0;
+                i < 50;
+                i++
+            ) {
+
+                floresSuelo.push({
+
+                    x:
+                        Math.random() *
+                        ancho,
+
+                    y:
+                        alto * .69 +
+                        Math.random() *
+                        alto * .25,
+
+                    tamaño:
+                        10 +
+                        Math.random() * 12,
+
+                    tipo:
+                        Math.random() <
+                        .72
+                            ? "margarita"
+                            : "amarilla"
+
+                });
+
+            }
+
+
+            /*
+                Orden por profundidad.
+            */
+
+            floresSuelo.sort(
+                (a,b) =>
+                    a.y - b.y
+            );
+
+        }
+
+
+        crearFloresSuelo();
+
+
+
+        function dibujarFloresSuelo() {
+
+            floresSuelo.forEach(
+                flor => {
+
+                    if (
+                        flor.tipo ===
+                        "margarita"
+                    ) {
+
+                        dibujarMargarita(
+                            ctx,
+                            flor.x,
+                            flor.y,
+                            flor.tamaño
+                        );
+
+                    } else {
+
+                        dibujarFlorAmarilla(
+                            ctx,
+                            flor.x,
+                            flor.y,
+                            flor.tamaño
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================================
+           HOJA
+        ================================================= */
+
+        function dibujarHoja(
+            ctx,
+            x,
+            y,
+            rotacion,
+            escala
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y
+            );
+
+
+            ctx.rotate(
+                rotacion
+            );
+
+
+            ctx.fillStyle =
+                "#4c8947";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                0,
+                0
+            );
+
+
+            ctx.bezierCurveTo(
+                15 * escala,
+                -15 * escala,
+
+                35 * escala,
+                -9 * escala,
+
+                45 * escala,
+                0
+            );
+
+
+            ctx.bezierCurveTo(
+                27 * escala,
+                12 * escala,
+
+                10 * escala,
+                12 * escala,
+
+                0,
+                0
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           RAMO GRANDE
+        ================================================= */
+
+        function dibujarRamo(
+            ctx,
+            x,
+            y,
+            escala
+        ) {
+
+            ctx.save();
+
+
+            /*
+                ========================================
+                TALLOS
+                ========================================
+            */
+
+            ctx.strokeStyle =
+                "#43803f";
+
+
+            ctx.lineWidth =
+                7 * escala;
+
+
+            ctx.lineCap =
+                "round";
+
+
+            /*
+                Girasol izquierdo
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 75 * escala,
+                y + 75 * escala
+            );
+
+
+            ctx.lineTo(
+                x - 50 * escala,
+                y + 285 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            /*
+                Girasol derecho
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x + 70 * escala,
+                y + 65 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 45 * escala,
+                y + 285 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            /*
+                Girasol central
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x,
+                y + 85 * escala
+            );
+
+
+            ctx.lineTo(
+                x,
+                y + 295 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            /*
+                Margarita izquierda
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 130 * escala,
+                y + 125 * escala
+            );
+
+
+            ctx.lineTo(
+                x - 70 * escala,
+                y + 290 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            /*
+                Margarita derecha
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x + 130 * escala,
+                y + 130 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 70 * escala,
+                y + 290 * escala
+            );
+
+
+            ctx.stroke();
+
+
+
+            /*
+                ========================================
+                HOJAS
+                ========================================
+            */
+
+            dibujarHoja(
+                ctx,
+                x - 75 * escala,
+                y + 190 * escala,
+                -0.5,
+                escala
+            );
+
+
+            dibujarHoja(
+                ctx,
+                x + 70 * escala,
+                y + 205 * escala,
+                0.5,
+                escala
+            );
+
+
+            dibujarHoja(
+                ctx,
+                x - 40 * escala,
+                y + 240 * escala,
+                -0.8,
+                escala
+            );
+
+
+            dibujarHoja(
+                ctx,
+                x + 38 * escala,
+                y + 250 * escala,
+                0.8,
+                escala
+            );
+
+
+
+            /*
+                ========================================
+                GIRASOLES
+                ========================================
+
+                Más grandes y con más detalle.
+            */
+
+            dibujarGirasol(
+                ctx,
+                x - 75 * escala,
+                y + 60 * escala,
+                72 * escala
+            );
+
+
+            dibujarGirasol(
+                ctx,
+                x + 70 * escala,
+                y + 52 * escala,
+                76 * escala
+            );
+
+
+            dibujarGirasol(
+                ctx,
+                x,
+                y + 22 * escala,
+                67 * escala
+            );
+
+
+
+            /*
+                ========================================
+                MARGARITAS
+                ========================================
+            */
+
+            dibujarMargarita(
+                ctx,
+                x - 132 * escala,
+                y + 110 * escala,
+                49 * escala
+            );
+
+
+            dibujarMargarita(
+                ctx,
+                x + 132 * escala,
+                y + 115 * escala,
+                47 * escala
+            );
+
+
+            /*
+                Margaritas pequeñas
+                en el centro, sin tapar
+                los girasoles.
+            */
+
+            dibujarMargarita(
+                ctx,
+                x - 32 * escala,
+                y + 105 * escala,
+                32 * escala
+            );
+
+
+            dibujarMargarita(
+                ctx,
+                x + 32 * escala,
+                y + 112 * escala,
+                30 * escala
+            );
+
+
+
+            /*
+                Flores amarillas pequeñas
+            */
+
+            dibujarFlorAmarilla(
+                ctx,
+                x - 98 * escala,
+                y + 165 * escala,
+                30 * escala
+            );
+
+
+            dibujarFlorAmarilla(
+                ctx,
+                x + 98 * escala,
+                y + 170 * escala,
+                29 * escala
+            );
+
+
+
+            /*
+                ========================================
+                BOLSA
+                ========================================
+
+                MUY IMPORTANTE:
+
+                La bolsa se dibuja al final.
+
+                De esta forma tapa todos los
+                tallos inferiores.
+            */
+
+            ctx.fillStyle =
+                "#f1dfba";
+
+
+            ctx.strokeStyle =
+                "#c8aa73";
+
+
+            ctx.lineWidth =
+                4 * escala;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 115 * escala,
+                y + 260 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 115 * escala,
+                y + 260 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 78 * escala,
+                y + 430 * escala
+            );
+
+
+            ctx.lineTo(
+                x - 78 * escala,
+                y + 430 * escala
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+
+            ctx.stroke();
+
+
+
+            /*
+                Parte superior de la bolsa.
+            */
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 115 * escala,
+                y + 260 * escala
+            );
+
+
+            ctx.quadraticCurveTo(
+                x,
+                y + 292 * escala,
+                x + 115 * escala,
+                y + 260 * escala
+            );
+
+
+            ctx.stroke();
+
+
+
+            /*
+                Papel interior.
+            */
+
+            ctx.fillStyle =
+                "rgba(255,248,225,.7)";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 105 * escala,
+                y + 262 * escala
+            );
+
+
+            ctx.quadraticCurveTo(
+                x,
+                y + 285 * escala,
+                x + 105 * escala,
+                y + 262 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 75 * escala,
+                y + 300 * escala
+            );
+
+
+            ctx.lineTo(
+                x - 75 * escala,
+                y + 300 * escala
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fill();
+
+
+
+            /*
+                Detalle decorativo
+                de la bolsa.
+            */
+
+            ctx.strokeStyle =
+                "#d1b37d";
+
+
+            ctx.lineWidth =
+                2 * escala;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 62 * escala,
+                y + 335 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 62 * escala,
+                y + 335 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x - 52 * escala,
+                y + 350 * escala
+            );
+
+
+            ctx.lineTo(
+                x + 52 * escala,
+                y + 350 * escala
+            );
+
+
+            ctx.stroke();
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           MARGARITAS QUE CAEN DEL CIELO
+        ================================================= */
+
+        const margaritasCaida = [];
+
+
+        function crearMargaritasCaida() {
+
+            margaritasCaida.length = 0;
+
+
+            /*
+                Pocas margaritas para que
+                el movimiento sea elegante
+                y no parezca una tormenta.
+            */
+
+            for (
+                let i = 0;
+                i < 13;
+                i++
+            ) {
+
+                margaritasCaida.push({
+
+                    x:
+                        Math.random() *
+                        ancho,
+
+                    y:
+                        Math.random() *
+                        alto,
+
+                    tamaño:
+                        7 +
+                        Math.random() * 10,
+
+                    velocidad:
+                        0.18 +
+                        Math.random() * .28,
+
+                    balanceo:
+                        .4 +
+                        Math.random() * .7,
+
+                    fase:
+                        Math.random() *
+                        Math.PI * 2,
+
+                    rotacion:
+                        Math.random() *
+                        Math.PI * 2,
+
+                    rotacionVel:
+                        -.003 +
+                        Math.random() * .006
+
+                });
+
+            }
+
+        }
+
+
+        crearMargaritasCaida();
+
+
+
+        function actualizarMargaritasCaida() {
+
+            margaritasCaida.forEach(
+                flor => {
+
+                    flor.y +=
+                        flor.velocidad;
+
+
+                    flor.x +=
+                        Math.sin(
+                            flor.y *
+                            .008 +
+                            flor.fase
+                        ) *
+                        flor.balanceo;
+
+
+                    flor.rotacion +=
+                        flor.rotacionVel;
+
+
+                    /*
+                        Cuando sale por abajo,
+                        vuelve arriba.
+                    */
+
+                    if (
+                        flor.y >
+                        alto + 50
+                    ) {
+
+                        flor.y =
+                            -50;
+
+                        flor.x =
+                            Math.random() *
+                            ancho;
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        function dibujarMargaritaCaida(
+            flor
+        ) {
+
+            ctx.save();
+
+
+            ctx.translate(
+                flor.x,
+                flor.y
+            );
+
+
+            ctx.rotate(
+                flor.rotacion
+            );
+
+
+            ctx.fillStyle =
+                "rgba(255,255,250,.9)";
+
+
+            const petalos = 9;
+
+
+            for (
+                let i = 0;
+                i < petalos;
+                i++
+            ) {
+
+                const angulo =
+                    i *
+                    Math.PI * 2 /
+                    petalos;
+
+
+                ctx.save();
+
+
+                ctx.rotate(
+                    angulo
+                );
+
+
+                ctx.beginPath();
+
+
+                ctx.ellipse(
+                    0,
+                    -flor.tamaño * .48,
+                    flor.tamaño * .18,
+                    flor.tamaño * .4,
+                    0,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fill();
+
+
+                ctx.restore();
+
+            }
+
+
+            ctx.fillStyle =
+                "#e2ae29";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                0,
+                0,
+                flor.tamaño * .22,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           MARIPOSAS
+        ================================================= */
+
+        const mariposas = [
+
+            {
+                x: .28,
+                y: .39,
+                velocidad: .00045,
+                fase: 0,
+                escala: .65
+            },
+
+            {
+                x: .68,
+                y: .46,
+                velocidad: .0005,
+                fase: 2,
+                escala: .55
+            },
+
+            {
+                x: .20,
+                y: .59,
+                velocidad: .00038,
+                fase: 4,
+                escala: .6
+            },
+
+            {
+                x: .80,
+                y: .59,
+                velocidad: .00048,
+                fase: 1,
+                escala: .5
+            }
+
+        ];
+
+
+
+        function dibujarMariposa(
+            ctx,
+            x,
+            y,
+            escala,
+            fase
+        ) {
+
+            const movimiento =
+                Math.sin(fase) * 5;
+
+
+            ctx.save();
+
+
+            ctx.translate(
+                x,
+                y + movimiento
+            );
+
+
+            ctx.fillStyle =
+                "#f0d66b";
+
+
+            /* Ala izquierda */
+
+            ctx.beginPath();
+
+
+            ctx.ellipse(
+                -9 * escala,
+                0,
+                13 * escala,
+                20 * escala,
+                -.4,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            /* Ala derecha */
+
+            ctx.beginPath();
+
+
+            ctx.ellipse(
+                9 * escala,
+                0,
+                13 * escala,
+                20 * escala,
+                .4,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            /* Cuerpo */
+
+            ctx.fillStyle =
+                "#55452e";
+
+
+            ctx.beginPath();
+
+
+            ctx.ellipse(
+                0,
+                0,
+                3 * escala,
+                13 * escala,
+                0,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+
+            ctx.restore();
+
+        }
+
+
+
+        /* =================================================
+           JARDÍN COMPLETO
+        ================================================= */
+
+        function dibujarJardin() {
+
+            ctx.clearRect(
+                0,
+                0,
+                ancho,
+                alto
+            );
+
+
+            /*
+                ORDEN:
+
+                Cielo
+                ↓
+                Sol
+                ↓
+                Nubes
+                ↓
+                Árboles
+                ↓
+                Vegetación
+                ↓
+                Pasto
+                ↓
+                Flores del suelo
+                ↓
+                Camino
+                ↓
+                Ramo
+                ↓
+                Margaritas que caen
+                ↓
+                Mariposas
+            */
+
+
+            dibujarCielo();
+
+
+            dibujarSol();
+
+
+            dibujarNubes();
+
+
+            dibujarArboles();
+
+
+            dibujarVegetacionFondo();
+
+
+            dibujarPasto();
+
+
+            dibujarFloresSuelo();
+
+
+            dibujarCamino();
+
+
+            /*
+                RAMO PROTAGONISTA
+            */
+
+            const escalaRamo =
+                Math.min(
+                    ancho,
+                    alto
+                ) / 570;
+
+
+            const xRamo =
+                ancho / 2;
+
+
+            /*
+                Lo colocamos un poco
+                más arriba para que
+                tenga espacio.
+            */
+
+            const yRamo =
+                alto * .25;
+
+
+            dibujarRamo(
+                ctx,
+                xRamo,
+                yRamo,
+                escalaRamo
+            );
+
+
+            /*
+                Margaritas cayendo
+                lentamente desde arriba.
+            */
+
+            actualizarMargaritasCaida();
+
+
+            margaritasCaida.forEach(
+                flor => {
+
+                    dibujarMargaritaCaida(
+                        flor
+                    );
+
+                }
+            );
+
+
+            /*
+                Mariposas
+            */
+
+            const tiempo =
+                performance.now();
+
+
+            mariposas.forEach(
+                mariposa => {
+
+                    const movimientoX =
+                        Math.sin(
+                            tiempo *
+                            mariposa.velocidad +
+                            mariposa.fase
+                        ) * 42;
+
+
+                    const movimientoY =
+                        Math.cos(
+                            tiempo *
+                            mariposa.velocidad *
+                            1.4 +
+                            mariposa.fase
+                        ) * 24;
+
+
+                    dibujarMariposa(
+
+                        ctx,
+
+                        ancho *
+                            mariposa.x +
+                            movimientoX,
+
+                        alto *
+                            mariposa.y +
+                            movimientoY,
+
+                        mariposa.escala,
+
+                        tiempo *
+                            .004 +
+                            mariposa.fase
+
+                    );
+
+                }
+            );
+
+
+            requestAnimationFrame(
+                dibujarJardin
+            );
+
+        }
+
+
+        dibujarJardin();
+
+
+
+        /* =================================================
+           AUDIO
+        ================================================= */
+
+        const audio =
+            document.getElementById(
+                "audio"
+            );
+
+
+        const audioBtn =
+            document.getElementById(
+                "audioBtn"
+            );
+
+
+        function controlarAudio() {
+
+            if (
+                audio.paused
+            ) {
+
+                audio.play();
+
+
+                audioBtn.textContent =
+                    "❚❚ Pausar";
+
+            }
+
+            else {
+
+                audio.pause();
+
+
+                audioBtn.textContent =
+                    "▶ Escuchar";
+
+            }
+
+        }
+
+
+        audio.addEventListener(
+            "ended",
+            () => {
+
+                audioBtn.textContent =
+                    "▶ Escuchar";
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>
